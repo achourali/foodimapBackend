@@ -17,7 +17,6 @@ export class OwnerRepository extends Repository<Owner> {
       email,
       password,
       phone,
-      restaurant_name,
       governorate,
       municipality,
       street,
@@ -31,8 +30,9 @@ export class OwnerRepository extends Repository<Owner> {
 
     try {
       await address.save();
-      user = new Owner(firstName, lastName, email,restaurant_name, hashedPassword, phone, address);
-      await user.save();
+      user = new Owner(firstName, lastName, email, hashedPassword, phone, address);
+      
+      await user.save(); 
     } catch (error) {
       if (error.code === "23505")
         throw new ConflictException("Email/Phone number already exists!");

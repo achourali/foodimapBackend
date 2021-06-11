@@ -48,8 +48,6 @@ export class Client extends BaseEntity {
   @JoinColumn()
   address: Address;
 
-  @Column()
-  addressId : number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

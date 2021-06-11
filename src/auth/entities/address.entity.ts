@@ -6,6 +6,8 @@ import {
 } from "typeorm";
 import { Client } from "./client.entity";
 import { Owner } from "./owner.entity";
+import {Restaurant} from "../../restaurant/entities/restaurant.entity";
+
 
 
 @Entity()
@@ -31,6 +33,10 @@ export class Address extends BaseEntity{
 
   @OneToOne(() => Owner,owner => owner.address)
   owner : Owner;
+
+
+  @OneToOne(() => Owner,owner => owner.address)
+  restaurant : Restaurant;
 
 
   constructor(governorate : string,municipality : string,street : string,location : string) {

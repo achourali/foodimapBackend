@@ -1,5 +1,5 @@
 import {
-  IsEmail,
+  IsNumber,
   IsString,
   MaxLength,
   MinLength,
@@ -12,37 +12,20 @@ import { ValidGovernorate } from "../../custom-validators/governorate.validator"
 import { ValidMunicipality } from "../../custom-validators/municipality.validator";
 
 
-export class OwnerSignupCredentialsDto {
+
+export class RestaurantCreationDto {
 
   @IsNotBlank()
   @IsString()
-  @MinLength(4, { message: "firstName must be at least 4 characters long." })
-  @MaxLength(20, { message: "firstName must be at most 20 characters long." })
-  firstName: string;
-
-  @IsNotBlank()
-  @IsString()
-  @MinLength(4, { message: "lastName must be at least 4 characters long." })
-  @MaxLength(20, { message: "lastName must be at most 20 characters long." })
-  lastName: string;
-
-  @IsNotBlank({ message: "Email field can't be empty." })
-  @IsEmail()
-  email: string;
-
-  @IsNotBlank({ message: "Password field can't be empty." })
-  @IsString()
-  @MinLength(6, { message: "password must be at least 6 characters long!" })
-  @MaxLength(20, { message: "password must be at most 20 characters long!" })
-  password: string;
+  @MinLength(4, { message: "name must be at least 4 characters long." })
+  @MaxLength(20, { message: "name must be at most 20 characters long." })
+  name: string;
 
   @IsNotBlank({ message: "Password field can't be empty." })
   @IsString()
   @Matches(/^\d{8}$/,{message : 'invalid phone number'})
   @Length(8, 8, { message: "Phone number must be 8 characters long!" })
   phone: string;
-
-
 
   @IsNotBlank({ message: "governorate field can't be empty." })
   @Validate(ValidGovernorate,{ message: "governorate is not supported!" })
@@ -52,7 +35,7 @@ export class OwnerSignupCredentialsDto {
   @IsNotBlank({ message: "municipality field can't be empty." })
   @ValidMunicipality('governorate',{message : 'governorate and municipality doesn\'t match.'})
   @IsString()
-  municipality: string; 
+  municipality: string;
 
   @IsNotBlank({ message: "street field can't be empty." })
   @IsString()

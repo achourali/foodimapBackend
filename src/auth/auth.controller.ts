@@ -19,6 +19,7 @@ export class AuthController {
 
   @Post('client/signup')
   async clientSignup(@Body(ValidationPipe) signupCredentialsDto:ClientSignupCredentialsDto) : Promise<{ accessToken : string , client : Client}|void>{
+    
     return this.authService.clientSignup(signupCredentialsDto);
   }
 
@@ -42,6 +43,11 @@ export class AuthController {
   @UseGuards(JwtAuthGuard,RolesGuard)
   testUserExtraction(@GetUser() client){
     return client;
+  }
+
+  @Get('/test2')
+  test(){
+    return "test2";
   }
 
 

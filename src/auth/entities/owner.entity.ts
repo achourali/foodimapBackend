@@ -4,12 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
 import { Address } from "./address.entity";
 import { UserRole } from "./roles.enum";
+import {Restaurant} from "../../restaurant/entities/restaurant.entity";
 
 
 @Entity()
@@ -35,9 +37,6 @@ export class Owner extends BaseEntity {
   @Column('varchar', { length: 8 ,unique: true,nullable : false})
   phone: string;
 
-  @Column()
-  restaurant_name : string;
-  //TODO : Must be changed to a relation with a restaurant entity
 
   @Column({
     type: 'enum',
@@ -59,11 +58,13 @@ export class Owner extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   UpdatedAt: Date;
 
+  @OneToMany(type => Restaurant, restaurant => restaurant.owner)
+  restaurants: Restaurant[];
+
   constructor(
     firstName: string,
     lastName: string,
     email: string,
-    restaurant_name : string,
     password: string,
     phone: string,
     address: Address,
@@ -72,7 +73,6 @@ export class Owner extends BaseEntity {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.restaurant_name = restaurant_name;
     this.password = password;
     this.phone = phone;
     this.role = UserRole.OWNER;
