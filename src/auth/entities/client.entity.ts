@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -10,6 +11,8 @@ import {
 import { Address } from './address.entity';
 import { JoinColumn } from 'typeorm';
 import { UserRole } from "./roles.enum";
+import { PlateRate } from 'src/rating/entities/plateRate.entity';
+import { RestaurantRate } from 'src/rating/entities/restaurantRate.entity';
 
 @Entity()
 export class Client extends BaseEntity {
@@ -54,6 +57,19 @@ export class Client extends BaseEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   UpdatedAt: Date;
+
+
+
+  @OneToMany(()=>PlateRate,plateRate=>plateRate.client)
+  platesRatings:PlateRate[];
+
+
+
+  @OneToMany(()=>RestaurantRate,restaurantRate=>restaurantRate.client)
+  restaurantsRatings:RestaurantRate[];
+
+
+
 
   constructor(
     firstName: string,

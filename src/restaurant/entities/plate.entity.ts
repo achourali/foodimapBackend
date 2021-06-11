@@ -1,8 +1,10 @@
+import { PlateRate } from "src/rating/entities/plateRate.entity";
 import {
     BaseEntity,
     Column,
     Entity,
     ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from "typeorm";
 import { Restaurant } from "./restaurant.entity";
@@ -23,18 +25,21 @@ export class Plate extends BaseEntity {
 
 
     @Column()
-    rate: Number;
+    rate: number;
 
 
     @ManyToOne(() => Restaurant, restaurant => restaurant.plates, { eager: true })
     restaurant:Restaurant;
+
+    @OneToMany(()=>PlateRate,plateRate=>plateRate.plate)
+    ratings:PlateRate[];
 
 
 
     constructor(
         name: string,
         description:string,
-        rate:Number,
+        rate:number,
         restaurant:Restaurant
     ) {
         super();

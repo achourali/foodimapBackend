@@ -4,6 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { typeOrmConfig } from "./config/typeorm.config";
 import { AuthModule } from './auth/auth.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
+import { RatingModule } from './rating/rating.module';
 
 
 @Module({
@@ -12,6 +13,7 @@ import { RestaurantModule } from './restaurant/restaurant.module';
     TypeOrmModule.forRoot(typeOrmConfig),
     AuthModule,
     RestaurantModule,
+    RatingModule,
   ],
   controllers: [],
   providers: [],

@@ -1,3 +1,4 @@
+import { RestaurantRate } from "src/rating/entities/restaurantRate.entity";
 import {
     BaseEntity,
     Column,
@@ -40,8 +41,12 @@ export class Restaurant extends BaseEntity {
     @ManyToOne(() => Owner, owner => owner.restaurants, { eager: true })
     owner: Owner;
 
-    @OneToMany(()=>Plate,plate=>plate.restaurant, { eager: true })
-    plates:Plate[];
+    @OneToMany(() => Plate, plate => plate.restaurant)
+    plates: Plate[];
+
+
+    @OneToMany(() => RestaurantRate, restaurantRate => restaurantRate.restaurant)
+    ratings: RestaurantRate[];
 
 
 
@@ -50,13 +55,13 @@ export class Restaurant extends BaseEntity {
         phone: string,
         address: Address,
         rate: Number,
-        owner:Owner
+        owner: Owner
     ) {
         super();
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.rate=rate;
-        this.owner=owner;
+        this.rate = rate;
+        this.owner = owner;
     }
 }
