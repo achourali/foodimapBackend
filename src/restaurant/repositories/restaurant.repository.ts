@@ -15,6 +15,15 @@ export class RestaurantRepository extends Repository<Restaurant> {
 
   }
 
+
+  async findOneById(id: number):Promise<Restaurant>{
+
+    return Restaurant.findOne(id)
+
+  }
+
+
+
   async add(restaurantCreationDto: RestaurantCreationDto,owner:Owner) :Promise<null>{
     const {
       name,

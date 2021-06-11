@@ -5,12 +5,14 @@ import {
     Entity,
     JoinColumn,
     ManyToOne,
+    OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
 import { Address } from "../../auth/entities/address.entity";
 import { Owner } from "../../auth/entities/owner.entity";
+import { Plate } from "./plate.entity";
 
 
 @Entity()
@@ -35,8 +37,11 @@ export class Restaurant extends BaseEntity {
     address: Address;
 
 
-    @ManyToOne(() => Owner, owner => owner.restaurants)
+    @ManyToOne(() => Owner, owner => owner.restaurants, { eager: true })
     owner: Owner;
+
+    @OneToMany(()=>Plate,plate=>plate.restaurant, { eager: true })
+    plates:Plate[];
 
 
 
