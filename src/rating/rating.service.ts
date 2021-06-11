@@ -21,6 +21,7 @@ export class RatingService {
 
     async addPlateRate(rateDto: RatingDto, client: Client) {
 
+        
         let plate = await this.plateRepository.findOne(rateDto.entityId);
 
         if (!plate)
@@ -29,7 +30,7 @@ export class RatingService {
             let totalRating= await (await this.plateRatingRepository.find({where:{"plate":plate}})).length;
 
             let rate = new PlateRate(rateDto.value, plate, client);
-            plate.rate=Math.floor((plate.rate*totalRating+rate.rate)/(totalRating+1));
+            plate.rate=Math.ceil((plate.rate*totalRating+rate.rate)/(totalRating+1));
             
             this.plateRepository.save(plate);
             this.plateRatingRepository.save(rate)
