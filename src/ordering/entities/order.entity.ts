@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsNotEmpty, IsString, ValidateNested } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString, ValidateNested } from "class-validator";
 import { Client } from "src/auth/entities/client.entity";
 import { Restaurant } from "src/restaurant/entities/restaurant.entity";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -35,6 +35,9 @@ export class Order extends BaseEntity {
     @Column()
     description: string;
 
+    @Column()
+    approved:boolean;
+
 
 
 
@@ -42,14 +45,15 @@ export class Order extends BaseEntity {
         orderlines:OrderLine[],
         client: Client,
         description: string,
+        approved:boolean
 
     ) {
         super();
-
+ 
         this.orderLines = orderlines;
         this.description = description;
         this.client = client;
-
+        this.approved=approved;
 
     }
 }

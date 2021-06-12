@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Post, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, ValidationPipe } from '@nestjs/common';
+import { get } from 'node:http';
 import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/entities/roles.enum';
@@ -45,6 +46,24 @@ export class OrderingController {
         
 
         return Order.find({"restaurant":restaurant})
+    }
+
+
+    @hasRoles(UserRole.OWNER)
+    @Get('approveOrder/:id')
+    async approveOrder(@Param('id') orderId,@GetUser() owner){
+
+        this.orderingService.approveOrder(orderId,owner);
+
+    }
+
+
+    @hasRoles(UserRole.OWNER)
+    @Get('disapproveOrder/:id')
+    async disapproveOrder(@Param('id') orderId,@GetUser() owner){
+
+        this.orderingService.disapproveOrder(orderId,owner);
+
     }
 
 
