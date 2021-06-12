@@ -1,6 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Restaurant } from "../entities/restaurant.entity";
-import { RestaurantCreationDto } from "../dto/restaurant-creation.dto";
 import { Address } from "../../auth/entities/address.entity";
 import { ConflictException, InternalServerErrorException } from "@nestjs/common";
 import { isEmail, isPhone } from "../../auth/helpers";
@@ -24,23 +23,15 @@ export class RestaurantRepository extends Repository<Restaurant> {
 
 
 
-  async add(restaurantCreationDto: RestaurantCreationDto,owner:Owner) :Promise<null>{
-    const {
-      name,
-      phone,
-      governorate,
-      municipality,
-      street,
-      location
-    } = restaurantCreationDto;
+  async add(restaurantName:string,owner:Owner) :Promise<null>{
+    
 
-    const address: Address = new Address(governorate, municipality, street, location);
+    
     let restaurant: Restaurant ;
 
 
     try {
-      await address.save();
-      restaurant = new Restaurant( name,phone,address,0,owner);
+      restaurant = new Restaurant( restaurantName,0,owner,owner.address);
       await restaurant.save();
     } catch (error) { 
       console.log(error);

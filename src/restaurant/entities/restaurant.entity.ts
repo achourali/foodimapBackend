@@ -30,16 +30,13 @@ export class Restaurant extends BaseEntity {
     @Column()
     rate: number;
 
-    @Column('varchar', { length: 8, unique: true, nullable: false })
-    phone: string;
 
-
-    @OneToOne(() => Address, (address) => address.restaurant, { eager: true })
+    @OneToOne(() => Address, (address) => address.owner, { eager: true })
     @JoinColumn()
     address: Address;
 
 
-    @ManyToOne(() => Owner, owner => owner.restaurants, { eager: true })
+    @OneToOne(() => Owner, owner => owner.restaurant, { eager: true })
     owner: Owner;
 
     @OneToMany(() => Plate, plate => plate.restaurant)
@@ -57,15 +54,13 @@ export class Restaurant extends BaseEntity {
 
     constructor(
         name: string,
-        phone: string,
-        address: Address,
         rate: number,
-        owner: Owner
+        owner: Owner,
+        address:Address
     ) {
         super();
+        this.address=address;
         this.name = name;
-        this.phone = phone;
-        this.address = address;
         this.rate = rate;
         this.owner = owner;
     }

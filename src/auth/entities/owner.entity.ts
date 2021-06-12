@@ -58,8 +58,9 @@ export class Owner extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   UpdatedAt: Date;
 
-  @OneToMany(type => Restaurant, restaurant => restaurant.owner)
-  restaurants: Restaurant[];
+  @OneToOne(type => Restaurant)
+  @JoinColumn()
+  restaurant: Restaurant;
 
   constructor(
     firstName: string,

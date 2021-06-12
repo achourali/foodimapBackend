@@ -8,7 +8,6 @@ import { JwtAuthGuard } from "src/auth/guards/jwt-guard";
 import { RolesGuard } from "src/auth/guards/roles.guard";
 import { PlateCreationDto } from "./dto/plate-creation.dto";
 import { PlateSearchDto } from "./dto/plate-search.dto";
-import { RestaurantCreationDto } from "./dto/restaurant-creation.dto";
 import { Plate } from "./entities/plate.entity";
 import { Restaurant } from "./entities/restaurant.entity";
 import { RestaurantService } from "./restaurant.service"
@@ -25,9 +24,9 @@ export class RestaurantController {
 
 
     @Post('addRestaurant')
-    addRestaurant(@Body(ValidationPipe) restaurantCreationDto: RestaurantCreationDto, @GetUser() owner: Owner): Promise<String> {
+    addRestaurant(@Body() restaurantDetails,@GetUser() owner: Owner): Promise<String> {
 
-        return this.restaurantService.addRestaurant(restaurantCreationDto, owner);
+        return this.restaurantService.addRestaurant(restaurantDetails.name, owner);
 
     }
 
@@ -58,10 +57,7 @@ export class RestaurantController {
     }
 
 
-    @Post('findRestaurants')
-    async findRestaurants(@Body() restaurantDto: RestaurantCreationDto): Promise<Restaurant[]> {
-        return this.restaurantService.findRestaurants(restaurantDto);
-    }
+    
 
 
     @Post('findPlates')
