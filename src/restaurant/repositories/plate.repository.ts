@@ -33,6 +33,7 @@ export class PlateRepository extends Repository<Plate> {
     const {
       name,
       description,
+      price,
     } = plateCreationDto;
 
     let plate: Plate;
@@ -45,6 +46,7 @@ export class PlateRepository extends Repository<Plate> {
         name,
         description,
         0,
+        price,
         restaurant,
       );
       await plate.save();

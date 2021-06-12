@@ -28,6 +28,10 @@ export class Plate extends BaseEntity {
     rate: number;
 
 
+    @Column()
+    price: number;
+
+
     @ManyToOne(() => Restaurant, restaurant => restaurant.plates, { eager: true ,onDelete:'CASCADE'})
     restaurant:Restaurant;
 
@@ -40,12 +44,14 @@ export class Plate extends BaseEntity {
         name: string,
         description:string,
         rate:number,
+        price:number,
         restaurant:Restaurant
     ) {
         super();
         this.name=name; 
         this.description=description;
         this.rate=rate;
+        this.price=price;
         this.restaurant=restaurant;
     }
 }

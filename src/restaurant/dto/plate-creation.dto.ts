@@ -19,6 +19,9 @@ export class PlateCreationDto {
   description: string;
 
   @IsNumber()
+  price: number;
+
+  @IsNumber()
   restaurantId: number
 
 
