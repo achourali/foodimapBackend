@@ -17,7 +17,7 @@ export class RestaurantRate extends BaseEntity {
     id: number;
 
     @Column()
-    rate: number;
+    value: number;
 
 
     @ManyToOne(() => Restaurant, restaurant => restaurant.ratings, { eager: true })
@@ -32,13 +32,13 @@ export class RestaurantRate extends BaseEntity {
 
 
     constructor(
-        rate:number,
+        value:number,
         restaurant: Restaurant,
         client:Client,
     ) {
         super();
 
-        this.rate = rate;
+        this.value = value;
         this.restaurant = restaurant;
         this.client = client;
 

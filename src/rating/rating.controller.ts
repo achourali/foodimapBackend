@@ -23,11 +23,19 @@ export class RatingController {
 
 
     @Post('ratePlate')
-    addRestaurant(@Body(ValidationPipe) ratingDto:RatingDto, @GetUser() client): Promise<void> {
+    ratePlate(@Body(ValidationPipe) ratingDto:RatingDto, @GetUser() client): Promise<void> {
 
         return this.ratingService.addPlateRate(ratingDto,client);
 
     }
+
+    @Post('rateRestaurant')
+    rateRestaurant(@Body(ValidationPipe) ratingDto:RatingDto, @GetUser() client): Promise<void> {
+
+        return this.ratingService.addRestaurantRate(ratingDto,client); 
+
+    }
+
 
 
 

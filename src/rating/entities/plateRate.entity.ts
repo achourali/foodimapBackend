@@ -16,7 +16,7 @@ export class PlateRate extends BaseEntity {
     id: number;
 
     @Column()
-    rate: number;
+    value: number;
 
 
     @ManyToOne(() => Plate, plate => plate.ratings, { eager: true })
@@ -31,13 +31,13 @@ export class PlateRate extends BaseEntity {
 
 
     constructor(
-        rate:number,
+        value:number,
         plate:Plate,
         client:Client,
     ) {
         super();
 
-        this.rate = rate;
+        this.value = value;
         this.plate = plate;
         this.client = client;
 

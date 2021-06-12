@@ -27,7 +27,7 @@ export class Restaurant extends BaseEntity {
 
 
     @Column()
-    rate: Number;
+    rate: number;
 
     @Column('varchar', { length: 8, unique: true, nullable: false })
     phone: string;
@@ -54,7 +54,7 @@ export class Restaurant extends BaseEntity {
         name: string,
         phone: string,
         address: Address,
-        rate: Number,
+        rate: number,
         owner: Owner
     ) {
         super();
