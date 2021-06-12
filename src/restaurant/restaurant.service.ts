@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Owner } from "src/auth/entities/owner.entity";
+import { Repository } from "typeorm";
 import { PlateCreationDto } from "./dto/plate-creation.dto";
 import { RestaurantCreationDto } from "./dto/restaurant-creation.dto";
 import { Plate } from "./entities/plate.entity";
@@ -15,21 +16,23 @@ import { RestaurantRepository } from "./repositories/restaurant.repository";
 export class RestaurantService {
 
     constructor(
-        @InjectRepository(RestaurantRepository) private restaurantRepository: RestaurantRepository,
-        @InjectRepository(PlateRepository) private plateRepository: PlateRepository,
+        @InjectRepository(RestaurantRepository) private customRestaurantRepository: RestaurantRepository,
+        @InjectRepository(PlateRepository) private customPlateRepository: PlateRepository,
+        @InjectRepository(Plate) private plateRepository: Repository<Plate>,
+        @InjectRepository(Restaurant) private restaurantRepository: Repository<Restaurant>,
 
     ) {
     }
 
     async addRestaurant(restaurantCreationDto: RestaurantCreationDto, owner: Owner): Promise<String> {
-        return await this.restaurantRepository.add(restaurantCreationDto, owner);
+        return await this.customRestaurantRepository.add(restaurantCreationDto, owner);
 
 
 
     }
 
     async findAll(): Promise<Restaurant[]> {
-        return this.restaurantRepository.findAll();
+        return this.customRestaurantRepository.findAll();
     }
 
     async findOneById(id: number): Promise<Restaurant> {
@@ -39,9 +42,37 @@ export class RestaurantService {
     }
 
 
-    async addPlate(plateCreationDto: PlateCreationDto,restaurant :Restaurant): Promise<null> {
+    async addPlate(plateCreationDto: PlateCreationDto, restaurant: Restaurant): Promise<null> {
 
-        return this.plateRepository.add(plateCreationDto,restaurant);
+        return this.customPlateRepository.add(plateCreationDto, restaurant);
+    }
+
+
+    async findTopRatedPlates(limit :number): Promise<Plate[]> {
+
+        return this.plateRepository.find({
+            order:{
+                rate:"DESC"
+            },
+            take:limit
+        })
+
+
+
+    }
+
+
+    async findTopRatedRestaurants(limit :number): Promise<Restaurant[]> {
+
+        return this.restaurantRepository.find({
+            order:{
+                rate:"DESC"
+            },
+            take:limit
+        })
+
+
+
     }
 
 

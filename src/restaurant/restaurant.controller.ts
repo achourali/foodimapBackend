@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UseGuards, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UseGuards, ValidationPipe } from "@nestjs/common";
 import { resourceLimits } from "node:worker_threads";
 import { GetUser } from "src/auth/decorators/get-user.decorator";
 import { hasRoles } from "src/auth/decorators/roles.decorator";
@@ -7,6 +7,7 @@ import { JwtAuthGuard } from "src/auth/guards/jwt-guard";
 import { RolesGuard } from "src/auth/guards/roles.guard";
 import { PlateCreationDto } from "./dto/plate-creation.dto";
 import { RestaurantCreationDto } from "./dto/restaurant-creation.dto";
+import { Plate } from "./entities/plate.entity";
 import { Restaurant } from "./entities/restaurant.entity";
 import { RestaurantService } from "./restaurant.service"
 
@@ -41,6 +42,21 @@ export class RestaurantController {
 
         
 
+    }
+
+    @Get('topRatedPlates/:limit')
+    topRatedPlates(@Param('limit') limit): Promise<Plate[]> {
+
+        return this.restaurantService.findTopRatedPlates(limit);
+ 
+    }
+
+
+    @Get('topRatedRestaurants/:limit')
+    topRatedRestaurants(@Param('limit') limit): Promise<Restaurant[]> {
+
+        return this.restaurantService.findTopRatedRestaurants(limit);
+ 
     }
 
 
