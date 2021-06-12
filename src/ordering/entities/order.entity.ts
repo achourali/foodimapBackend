@@ -22,7 +22,6 @@ export class Order extends BaseEntity {
     orderlines:OrderLine[];
 
 
-    @IsNotEmpty()
     @ManyToOne(() => Client, client => client.orders, { eager: true })
     client: Client;
 

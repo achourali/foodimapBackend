@@ -1,4 +1,5 @@
-import { Body, Controller, Post, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, ValidationPipe } from '@nestjs/common';
+import { GetUser } from 'src/auth/decorators/get-user.decorator';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/entities/roles.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
@@ -20,12 +21,19 @@ export class OrderingController {
     }
 
 
+    @hasRoles(UserRole.CLIENT)
     @Post('addOrder')
-    async addOrder(@Body(ValidationPipe) order:Order):Promise<null>{
-
+    async addOrder(@Body(ValidationPipe) order: Order,@GetUser() client): Promise<null> {
+        order.client=client;
         return await this.orderingService.addOrder(order);
     }
 
 
+    @hasRoles(UserRole.CLIENT)
+    @Get('client/getOrders')
+    getOrders(@GetUser() client) {
+        return Order.find({"client":client})
+    }
+
+
 }
- 

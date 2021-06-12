@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, ValidateNested } from "class-validator";
 import { Plate } from "src/restaurant/entities/plate.entity";
-import { BaseEntity, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Order } from "./order.entity";
 
 
@@ -17,10 +17,11 @@ export class OrderLine extends BaseEntity {
 
     @IsNotEmpty()
     @IsNumber()
+    @Column()
     quantity:Number;
 
     @IsNotEmpty()
-    @ManyToOne(()=>Plate,plate=>plate.orderLines)
+    @ManyToOne(()=>Plate,plate=>plate.orderLines,{eager:true})
     plate:Plate
 
 
