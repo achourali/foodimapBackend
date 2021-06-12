@@ -13,6 +13,7 @@ import { JoinColumn } from 'typeorm';
 import { UserRole } from "./roles.enum";
 import { PlateRate } from 'src/rating/entities/plateRate.entity';
 import { RestaurantRate } from 'src/rating/entities/restaurantRate.entity';
+import { Order } from 'src/ordering/entities/order.entity';
 
 @Entity()
 export class Client extends BaseEntity {
@@ -62,6 +63,10 @@ export class Client extends BaseEntity {
 
   @OneToMany(()=>PlateRate,plateRate=>plateRate.client)
   platesRatings:PlateRate[];
+
+
+  @OneToMany(()=>Order,order=>order.client)
+  orders:Order[];
 
 
 

@@ -1,3 +1,4 @@
+import { Order } from "src/ordering/entities/order.entity";
 import { RestaurantRate } from "src/rating/entities/restaurantRate.entity";
 import {
     BaseEntity,
@@ -47,6 +48,10 @@ export class Restaurant extends BaseEntity {
 
     @OneToMany(() => RestaurantRate, restaurantRate => restaurantRate.restaurant)
     ratings: RestaurantRate[];
+
+
+    @OneToMany(() => Order, order => order.restaurant)
+    orders: Order[];
 
 
 

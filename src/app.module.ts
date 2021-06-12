@@ -5,6 +5,7 @@ import { typeOrmConfig } from "./config/typeorm.config";
 import { AuthModule } from './auth/auth.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { RatingModule } from './rating/rating.module';
+import { OrderingModule } from './ordering/ordering.module';
 
 
 @Module({
@@ -14,6 +15,7 @@ import { RatingModule } from './rating/rating.module';
     AuthModule,
     RestaurantModule,
     RatingModule,
+    OrderingModule,
   ],
   controllers: [],
   providers: [],

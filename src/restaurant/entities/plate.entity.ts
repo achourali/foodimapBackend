@@ -1,3 +1,4 @@
+import { OrderLine } from "src/ordering/entities/orderLine.entity";
 import { PlateRate } from "src/rating/entities/plateRate.entity";
 import {
     BaseEntity,
@@ -37,6 +38,10 @@ export class Plate extends BaseEntity {
 
     @OneToMany(()=>PlateRate,plateRate=>plateRate.plate)
     ratings:PlateRate[];
+
+
+    @OneToMany(()=>OrderLine,orderLine=>orderLine.plate)
+    orderLines:OrderLine[];
 
 
 
