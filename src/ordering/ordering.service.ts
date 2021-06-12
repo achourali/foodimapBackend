@@ -10,7 +10,7 @@ export class OrderingService {
     async addOrder(order: Order): Promise<null> {
        
             Order.save(order)
-            order.orderlines.forEach((line) => {
+            order.orderLines.forEach((line) => {
                 line.order = order;
                 OrderLine.save(line)
             });

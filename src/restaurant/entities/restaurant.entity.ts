@@ -37,7 +37,11 @@ export class Restaurant extends BaseEntity {
 
 
     @OneToOne(() => Owner, owner => owner.restaurant, { eager: true })
+    @JoinColumn()
     owner: Owner;
+
+
+
 
     @OneToMany(() => Plate, plate => plate.restaurant)
     plates: Plate[];

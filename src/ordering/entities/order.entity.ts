@@ -2,7 +2,7 @@ import { Type } from "class-transformer";
 import { IsNotEmpty, IsString, ValidateNested } from "class-validator";
 import { Client } from "src/auth/entities/client.entity";
 import { Restaurant } from "src/restaurant/entities/restaurant.entity";
-import { BaseEntity, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { OrderLine } from "./orderLine.entity";
 
 
@@ -19,7 +19,7 @@ export class Order extends BaseEntity {
     @Type(()=>OrderLine)
     @ValidateNested({ each: true })
     @OneToMany(()=>OrderLine,orderLine=>orderLine.order,{eager:true})
-    orderlines:OrderLine[];
+    orderLines:OrderLine[];
 
 
     @ManyToOne(() => Client, client => client.orders, { eager: true })
@@ -32,6 +32,7 @@ export class Order extends BaseEntity {
 
 
     @IsString()
+    @Column()
     description: string;
 
 
@@ -45,7 +46,7 @@ export class Order extends BaseEntity {
     ) {
         super();
 
-        this.orderlines = orderlines;
+        this.orderLines = orderlines;
         this.description = description;
         this.client = client;
 

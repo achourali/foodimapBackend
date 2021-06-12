@@ -30,6 +30,10 @@ export class RestaurantService {
 
 
         this.restaurantRepository.save(restaurant);
+        owner.restaurant=restaurant;
+        Owner.save(owner);
+
+        
         return;
 
 

@@ -4,6 +4,7 @@ import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { UserRole } from 'src/auth/entities/roles.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
 import { Order } from './entities/order.entity';
 import { OrderLine } from './entities/orderLine.entity';
 import { OrderingService } from './ordering.service';
@@ -31,8 +32,19 @@ export class OrderingController {
 
     @hasRoles(UserRole.CLIENT)
     @Get('client/getOrders')
-    getOrders(@GetUser() client) {
+    getClientOrders(@GetUser() client) {
         return Order.find({"client":client})
+    }
+
+
+    @hasRoles(UserRole.OWNER)
+    @Get('owner/getOrders')
+    async getOwnerOrders(@GetUser() owner) {
+        
+        let restaurant=await Restaurant.findOne({"owner":owner});
+        
+
+        return Order.find({"restaurant":restaurant})
     }
 
 

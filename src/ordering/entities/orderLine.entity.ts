@@ -12,7 +12,7 @@ export class OrderLine extends BaseEntity {
     id: number;
 
 
-    @ManyToOne(()=>Order,order=>order.orderlines)
+    @ManyToOne(()=>Order,order=>order.orderLines)
     order:Order;
 
     @IsNotEmpty()
