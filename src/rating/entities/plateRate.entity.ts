@@ -19,7 +19,7 @@ export class PlateRate extends BaseEntity {
     value: number;
 
 
-    @ManyToOne(() => Plate, plate => plate.ratings, { eager: true })
+    @ManyToOne(() => Plate, plate => plate.ratings, { eager: true ,onDelete:'CASCADE'})
     plate: Plate;
 
 

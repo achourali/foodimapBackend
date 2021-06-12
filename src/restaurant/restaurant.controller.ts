@@ -30,25 +30,63 @@ export class RestaurantController {
     }
 
     @Post('addPlate')
-    async addPlate(@Body(ValidationPipe) plateCreationDto: PlateCreationDto, @GetUser() owner): Promise< null> {
+    async addPlate(@Body(ValidationPipe) plateCreationDto: PlateCreationDto, @GetUser() owner): Promise<null> {
 
-        let restaurant = await this.restaurantService.findOneById(plateCreationDto.restaurantId);
+        let restaurant = await this.restaurantService.findRestaurantById(plateCreationDto.restaurantId);
 
         if (!restaurant || restaurant.owner.id != owner.id)
             throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-        else{
-            return this.restaurantService.addPlate(plateCreationDto,restaurant);
+        else {
+            return this.restaurantService.addPlate(plateCreationDto, restaurant);
         }
 
-        
+
 
     }
+
+
+    @Get('removeRestaurant/:id')
+    async removeRestaurant(@Param('id') id, @GetUser() owner): Promise<null> {
+
+        let restaurant = await this.restaurantService.findRestaurantById(id);
+        if (!restaurant || restaurant.owner.id != owner.id)
+            throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+        else {
+            this.restaurantService.removeRestaurant(id);
+            return;
+        }
+
+    }
+
+    @Get('removePlate/:id')
+    async removePlate(@Param('id') id, @GetUser() owner): Promise<null> {
+
+        let plate = await this.restaurantService.findPlateById(id);
+        if (!plate.restaurant)
+            throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+
+
+
+        let restaurant = await this.restaurantService.findRestaurantById(plate.restaurant.id);
+
+
+        if (!restaurant || restaurant.owner.id != owner.id)
+            throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+        else {
+            this.restaurantService.removePlate(id);
+            return;
+        }
+
+    }
+
+
+
 
     @Get('topRatedPlates/:limit')
     topRatedPlates(@Param('limit') limit): Promise<Plate[]> {
 
         return this.restaurantService.findTopRatedPlates(limit);
- 
+
     }
 
 
@@ -56,7 +94,7 @@ export class RestaurantController {
     topRatedRestaurants(@Param('limit') limit): Promise<Restaurant[]> {
 
         return this.restaurantService.findTopRatedRestaurants(limit);
- 
+
     }
 
 

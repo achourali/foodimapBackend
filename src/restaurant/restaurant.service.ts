@@ -35,9 +35,16 @@ export class RestaurantService {
         return this.customRestaurantRepository.findAll();
     }
 
-    async findOneById(id: number): Promise<Restaurant> {
+    async findRestaurantById(id: number): Promise<Restaurant> {
 
         return Restaurant.findOne(id)
+
+    }
+
+
+    async findPlateById(id: number): Promise<Plate> {
+
+        return Plate.findOne(id)
 
     }
 
@@ -73,6 +80,15 @@ export class RestaurantService {
 
 
 
+    }
+
+    async removeRestaurant(id :number){
+        this.restaurantRepository.delete(id);
+    }
+
+
+    async removePlate(id :number){
+        this.plateRepository.delete(id);
     }
 
 

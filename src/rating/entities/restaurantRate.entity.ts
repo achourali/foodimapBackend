@@ -20,7 +20,7 @@ export class RestaurantRate extends BaseEntity {
     value: number;
 
 
-    @ManyToOne(() => Restaurant, restaurant => restaurant.ratings, { eager: true })
+    @ManyToOne(() => Restaurant, restaurant => restaurant.ratings, { eager: true ,onDelete:'CASCADE'})
     restaurant: Restaurant;
 
 
