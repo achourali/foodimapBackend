@@ -67,6 +67,24 @@ export class OrderingController {
     }
 
 
+    @hasRoles(UserRole.OWNER)
+    @Get('confirmOrderIsReady/:id') 
+    async confirmOrderIsReady(@Param('id') orderId,@GetUser() owner){
+
+        this.orderingService.confirmOrderIsReady(orderId,owner);
+
+    }
+
+
+    @hasRoles(UserRole.OWNER)
+    @Get('cancelOrderIsReady/:id')
+    async cancelOrderIsReady(@Param('id') orderId,@GetUser() owner){
+
+        this.orderingService.cancelOrderIsReady(orderId,owner);
+
+    }
+
+
 
 
 

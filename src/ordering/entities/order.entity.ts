@@ -39,13 +39,18 @@ export class Order extends BaseEntity {
     approved:boolean;
 
 
+    @Column()
+    ready:boolean;
+
+
 
 
     constructor(
         orderlines:OrderLine[],
         client: Client,
         description: string,
-        approved:boolean
+        approved:boolean,
+        ready:boolean
 
     ) {
         super();
@@ -54,6 +59,6 @@ export class Order extends BaseEntity {
         this.description = description;
         this.client = client;
         this.approved=approved;
-
+        this.ready=ready;
     }
 }

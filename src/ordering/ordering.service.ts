@@ -9,6 +9,7 @@ export class OrderingService {
 
     async addOrder(order: Order): Promise<null> {
         order.approved = false;
+        order.ready=false;
 
         Order.save(order);
         order.orderLines.forEach((line) => {
@@ -46,5 +47,32 @@ export class OrderingService {
             Order.save(order);
         }
     }
+
+
+    async confirmOrderIsReady(orderId, owner) {
+        let order = await Order.findOne(orderId);
+
+        if (!order ||  order.restaurant.owner.id!=owner.id)
+            throw new UnauthorizedException('Unauthorized');
+        else{
+
+            order.ready=true;
+            Order.save(order);
+        }
+    }
+
+    async cancelOrderIsReady(orderId, owner) {
+        let order = await Order.findOne(orderId);
+
+        if (!order ||  order.restaurant.owner.id!=owner.id)
+            throw new UnauthorizedException('Unauthorized');
+        else{
+
+            order.ready=false;
+            Order.save(order);
+        }
+    }
+
+
 
 }
