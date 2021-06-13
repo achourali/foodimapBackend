@@ -13,7 +13,6 @@ import { OrderingService } from './ordering.service';
 
 
 @Controller('ordering')
-@hasRoles(UserRole.CLIENT)
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class OrderingController {
 
