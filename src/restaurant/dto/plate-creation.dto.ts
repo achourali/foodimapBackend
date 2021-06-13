@@ -18,6 +18,10 @@ export class PlateCreationDto {
   @IsString()
   description: string;
 
+
+  @IsString()
+  imageUrl: string;
+
   @IsNumber()
   price: number;
 

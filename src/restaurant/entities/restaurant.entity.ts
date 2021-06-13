@@ -27,6 +27,7 @@ export class Restaurant extends BaseEntity {
     name: string;
 
 
+
     @Column()
     rate: number;
 
@@ -39,6 +40,11 @@ export class Restaurant extends BaseEntity {
     @OneToOne(() => Owner, owner => owner.restaurant, { eager: true })
     @JoinColumn()
     owner: Owner;
+
+
+    @Column()
+    imageUrl: string;
+
 
 
 
@@ -60,12 +66,14 @@ export class Restaurant extends BaseEntity {
         name: string,
         rate: number,
         owner: Owner,
-        address:Address
+        address:Address,
+        imageUrl:string,
     ) {
         super();
         this.address=address;
         this.name = name;
         this.rate = rate;
         this.owner = owner;
+        this.imageUrl=imageUrl;
     }
 }

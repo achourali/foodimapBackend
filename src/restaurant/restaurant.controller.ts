@@ -26,7 +26,7 @@ export class RestaurantController {
     @Post('addRestaurant')
     addRestaurant(@Body() restaurantDetails,@GetUser() owner: Owner): Promise<String> {
 
-        return this.restaurantService.addRestaurant(restaurantDetails.name, owner);
+        return this.restaurantService.addRestaurant(restaurantDetails.name,restaurantDetails.imageUrl, owner);
 
     }
 

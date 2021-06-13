@@ -24,9 +24,9 @@ export class RestaurantService {
     ) {
     }
 
-    async addRestaurant(restaurantName: string, owner: Owner): Promise<null> {
+    async addRestaurant(restaurantName: string,imageUrl:string, owner: Owner): Promise<null> {
 
-        let restaurant = new Restaurant(restaurantName, 0, owner, owner.address);
+        let restaurant = new Restaurant(restaurantName, 0, owner, owner.address,imageUrl);
 
 
         this.restaurantRepository.save(restaurant);
@@ -91,6 +91,7 @@ export class RestaurantService {
             name,
             description,
             price,
+            imageUrl,
         } = plateCreationDto;
 
         let plate: Plate;
@@ -103,6 +104,7 @@ export class RestaurantService {
                 0,
                 price,
                 restaurant,
+                imageUrl
             );
             await plate.save();
         } catch (error) {
