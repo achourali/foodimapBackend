@@ -23,7 +23,7 @@ export class RestaurantRepository extends Repository<Restaurant> {
 
 
 
-  async add(restaurantName:string,owner:Owner) :Promise<null>{
+  async add(restaurantName:string,url:string,owner:Owner) :Promise<null>{
     
 
     
@@ -31,7 +31,7 @@ export class RestaurantRepository extends Repository<Restaurant> {
 
 
     try {
-      restaurant = new Restaurant( restaurantName,0,owner,owner.address);
+      restaurant = new Restaurant( restaurantName,0,owner,owner.address,url);
       await restaurant.save();
     } catch (error) { 
       console.log(error);
